@@ -17,7 +17,7 @@ import NavItems from "./NavItems"
 const UserDropdown = () => {
   const router = useRouter(); 
   const handleSignOut = async () => {
-    router .push("/signout")
+    router.push("/signout")
   }
 
   const user = {name:"john", email: "john@gmail.com"}
