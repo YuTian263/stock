@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stock Market
+
+This project uses Next.js and MongoDB via Mongoose.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Database Connection Test
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+A database test script is included so you can verify your MongoDB connection without starting the whole app.
 
-## Learn More
+Run it with:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run db:test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If the connection works, you should see output similar to:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+MongoDB connection test passed.
+Protocol: mongodb+srv
+Requested host: cluster.mongodb.net
+Connected host: ac-xxxxx.mongodb.net
+Connected port: 27017
+Requested database: (default)
+Database name: test
+Ready state: 1
+```
 
-## Deploy on Vercel
+If it fails, the command will print the error message and exit with a non-zero status.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Step-By-Step: Test MongoDB Yourself
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Open `.env` and make sure `MONGODB_URI` is present.
+2. Keep the env format simple, for example:
+
+```env
+NODE_ENV=development
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?appName=Cluster0
+```
+
+3. Install dependencies if you have not already:
+
+```bash
+npm install
+```
+
+4. Run the database test:
+
+```bash
+npm run db:test
+```
+
+5. Confirm the result:
+   `MongoDB connection test passed.` means the URI is valid and the database is reachable.
+6. If it fails, check:
+   your username/password in `MONGODB_URI`
+   your MongoDB Atlas network access settings
+   whether the cluster is running
+
+## Relevant Files
+
+- `database/moongoose.ts`: shared Mongoose connection helper
+- `scripts/test-db-connection.ts`: standalone MongoDB test script
